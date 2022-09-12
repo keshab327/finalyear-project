@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>PixelTrice</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<br>
+	<div class="banner-bootom-w3-agileits py-5">
+		<div class="container py-xl-4 py-lg-2">
+			<!-- tittle heading -->
+			<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+				<span>s</span>hop
+				<span>D</span>etails</h3><br>
+			<!-- //tittle heading -->
+			<div class="row">
+				<div class="col-lg-5 col-md-8 single-right-left ">
+					<div class="grid images_3_of_2">
+						<div class="flexslider">
+						<div class="thumb-image">
+						<label  style="color:blue;">Citizenship</label></br>
+						
+							&emsp;<img th:src="@{${'/image/display/'+id}}" 
+							 class="img img-responsive img-fluid" alt=""> 
+						</div>
+						<br>
+						
+						
+							<div class="thumb-image">
+						<label  style="color:blue;">Tax Details</label></br>
+						
+							&emsp;<img th:src="@{${'/image/display_tax/'+id}}" 
+							 class="img img-responsive img-fluid" alt=""> 
+						</div>
+						
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+
+<br><br><br><br>
+
+				<div class="col-lg-7 single-right-left simpleCart_shelfItem">
+					Shop Name: <span th:text="${name}" class="mb-3"></span><br>
+					Owner Name: <span th:text="${owner_name}" class="mb-3"></span><br>
+					Adress: <span th:text="${adress}" class="mb-3"></span><br>
+					
+					Pan Number: <span th:text="${pan_number}" style="color:red;"  class="mb-3"></span><br>
+					Owner Number: <span th:text="${phone_number}" style="color:red;"  class="mb-3"></span><br>
+					Owner email: <span th:text="${email}" style="color:red;"  class="mb-3"></span><br>
+					
+					<div class="product-single-w3l">
+						Description: <span th:text="${description}" class="my-sm-4 my-3"> 
+						</span>
+					</div><br>
+					<a href="/admin/image/show">Go Back</a>
+					&emsp;<a href="/admin">Go Home</a>
+				
+					&emsp;<a th:href="@{/delete_shop_request/{id}(id=${id})}">delete</a>
+				
+					
+					
+			</div>
+		</div>
+	</div>
+	<div id="divv1"></div>
+	
+	<!-- only alert work without calling by function -->
+	<script>
+	function click(){
+		document.getElementById(id).innerHTML = "lalauuuu";
+ alert("hello world");
+ }
+</script>
+</body>
+</html>

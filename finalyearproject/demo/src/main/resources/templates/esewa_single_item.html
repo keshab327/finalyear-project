@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>PixelTrice</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  
+  
+  
+</head>
+<body>
+<br>
+	<div class="banner-bootom-w3-agileits py-5">
+		<div class="container py-xl-4 py-lg-2">
+			<!-- tittle heading -->
+			<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+			
+				<span>P</span>ayment</h3><br>
+			<!-- //tittle heading -->
+			<div class="row">
+				<div class="col-lg-5 col-md-8 single-right-left ">
+					<div class="grid images_3_of_2">
+						<div class="flexslider">
+						<div class="thumb-image">
+						<label  th:text="bestfit"  style="color:blue;"></label></br>
+						
+							&emsp;<img th:src="@{${'/display_productimage/' + product_id}}" 
+							 class="img img-responsive img-fluid" alt=""> 
+						</div>
+						<br>
+						
+						<!--  <img class="" height="300px" width="300px" th:src="@{${'/display_productimage/' + product.product_id}}" th:alt="${product.name}">
+						
+						-->
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+				<br><br>
+				email:&emsp;&emsp;   &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;         <span th:text="${email}" style="color:blue;" class="mb-3"></span><br>
+				phone:&emsp;&emsp;   &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;         <span th:text="${phone}" style="color:blue;" class="mb-3"></span><br>
+                adress:&emsp;&emsp;   &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;         <span th:text="${adress}" style="color:blue;" class="mb-3"></span><br>
+  shipping adress:&emsp;&emsp;   &emsp;&emsp;     <span th:text="${shipping_adress}" style="color:blue;" class="mb-3"></span><br>
+
+
+<br>
+<br>
+			<!--	<div class="col-lg-7 single-right-left simpleCart_shelfItem">
+				<!--	Shop Name: <span th:text="${name}" class="mb-3"></span><br>-->
+				price:&emsp;&emsp;   &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;         <span th:text="${amt}" style="color:green;" class="mb-3"></span><br>
+					tax:  &emsp;&emsp;   &emsp;&emsp; &emsp;&emsp;   &emsp;&emsp;  &emsp;             <span th:text="${txAmt}" style="color:green;" class="mb-3"></span><br>
+					
+					product service charge:&emsp;   <span th:text="${psc}" style="color:green;"  class="mb-3"></span><br>
+					product delivery charge:&emsp;   <span th:text="${pdc}" style="color:green;"  class="mb-3"></span><br>
+			
+			
+					total: <span th:text="${tAmt}" style="color:green;" class="mb-3"></span><br>
+					
+					
+					<br>
+		  <form action="https://uat.esewa.com.np/epay/main" id="esewa_form" method="POST">
+		   
+    <input th:attr="value = ${tAmt}" name="tAmt"   type="hidden" id="total_amount">
+    <input th:attr="value = ${amt}" name="amt" type="hidden"  id="total_price">
+    <input th:attr="value = ${txAmt}" name="txAmt"type="hidden" id="total_tax">
+    <input th:attr="value = ${psc}" name="psc" type="hidden" id="total_psc">
+    <input th:attr="value = ${pdc}" name="pdc" type="hidden" id="total_pdc">
+    <input value="EPAYTEST" name="scd" type="hidden">
+    <input th:attr="value = ${pid}" name="pid" type="hidden">
+    <input value="http://merchant.com.np/page/esewa_payment_success?q=su" type="hidden" name="su">
+    <input value="http://merchant.com.np/page/esewa_payment_failed?q=fu" type="hidden" name="fu">
+    <input value="checkout" type="submit"  style="color:blue;text-align:center;">
+  
+   
+    </form>
+					
+					
+					
+					<br><br><br>
+					<a href="/cart">Go Back</a>
+					&emsp;<a href="/">Go Home</a>
+					
+				
+					
+					
+			</div>
+		</div>
+	</div>
+	<div id="divv1"></div>
+	
+	<!-- only alert work without calling by function -->
+	
+	
+	
+	
+
+	
+ 	
+      
+    
+       
+       
+     
+    
+
+	
+
+</body>
+	
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>PixelTrice</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<br>
+	<div class="banner-bootom-w3-agileits py-5">
+		<div class="container py-xl-4 py-lg-2">
+			<!-- tittle heading -->
+			<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+				<span>o</span>rder
+				<span>D</span>etails</h3><br>
+			<!-- //tittle heading -->
+			<div class="row">
+				<div class="col-lg-5 col-md-8 single-right-left ">
+					<div class="grid images_3_of_2">
+						<div class="flexslider">
+				<!--	<div class="thumb-image">
+						<label  style="color:blue;">product</label></br>
+						
+							&emsp;<img th:src="@{${'/display/'+id+'/'+shopid}}" 
+							 class="img img-responsive img-fluid" alt=""> 
+						</div>-->
+						<br>
+						<br>
+							
+						
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+
+<!--
+nt customerid;
+String productname;
+private int pid;
+private int productid;
+private String adress;
+private String shippingadress;
+private String email;
+private long phonenumber;
+private String status;
+private double totalamountperitem;
+private String departstatus;
+private String deliverstatus;
+private Date orderedDate;
+shopid
+-->
+
+
+				<div class="col-lg-7 single-right-left simpleCart_shelfItem" th:object="${order}">
+					Product Name: <span th:text="${productname}" class="mb-3"></span><br>
+					Product id: <span th:text="${productid}" class="mb-3"></span><br><br>
+						Order adress: <span th:text="${adress}" class="mb-3"></span><br>
+					Shipping adress: <span th:text="${shippingadress}" class="mb-3"></span><br><br>
+				
+					Customer Number: <span th:text="${phonenumber}" class="mb-3"></span><br>
+					email: <span th:text="${email}" class="mb-3"></span><br><br>
+					totalamount: <span th:text="${totalamountperitem}"  style="color:green;"     class="mb-3"></span><br>
+			order datetime:	<td th:text="${#dates.format({orderedDate}, 'dd-MM-yyyy HH:mm')}"/></td><br>
+				
+				delivered date: <span th:text="${deliverstatus}"    style="color:blue;"     class="mb-3"></span><br>
+					
+					</br>
+					
+				<!--	Owner Number: <span th:text="${phone_number}" style="color:red;"  class="mb-3"></span><br>-->
+					
+					
+				<!--
+	private int id;
+	private String report;
+	private int productid;
+	private String Reportstatus;
+	private int orderid;-->
+					
+					
+					
+					 <form th:action="@{/Customermyorder/submitreport}" th:object="${report}" method="post">
+					 
+              <input th:attr="value = ${id}" name="orderid"   type="hidden" >
+          
+               
+              <p><label for="w3review">Please submit your problem</label></p>
+  <textarea id="w3review" name="report" rows="4" cols="50"></textarea>
+  <br>
+   <input value="NOTCHECKED" name="Reportstatus"   type="hidden" >
+   <input type="submit" value="submit complain" ><br>         
+                   </form><br><br>
+					
+					
+					
+					<a href="/customermyorder/delivered/">Go Back</a>
+					&emsp;<a href="/buyer">cancell</a>
+					
+					
+						
+				
+					
+					
+			</div>
+		</div>
+	</div>
+	<div id="divv1"></div>
+	
+	<!-- only alert work without calling by function -->
+	<script>
+	function click(){
+		document.getElementById(id).innerHTML = "lalauuuu";
+ alert("hello world");
+ }
+</script>
+</body>
+</html>
