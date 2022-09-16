@@ -88,8 +88,17 @@ public class ShopOwnerController_ordersee_productadd {
 	public String show(Model model ,HttpServletRequest request)//for session to work use in function parameter of mapping//
 	{
 		
+	
+		
+		
+		String shopid_string;
+		try {
 		 
-	String shopid_string= (String) request.getSession().getAttribute("shopid");
+			shopid_string	= (String) request.getSession().getAttribute("shopid");
+		}catch(Exception e) {
+			
+			return "redirect:/login";
+		}
 	int shopid=Integer. parseInt(shopid_string);
 	long shopidd=Long.valueOf(shopid);
 
@@ -105,7 +114,7 @@ public class ShopOwnerController_ordersee_productadd {
 		model.addAttribute("shopid",shopid);
 	
 		
-	
+
 	
 		
 		return "ownerconfirm_order";
@@ -151,9 +160,13 @@ public class ShopOwnerController_ordersee_productadd {
 			
 			
 				if (order!=null) {
+					
+					model.addAttribute("quantity", order.getQuantity());
+					
 					model.addAttribute("productid", order.getProductid());
 					model.addAttribute("productname", order.getProductname());
 					model.addAttribute("shippingadress", order.getShippingadress());
+					model.addAttribute("shipphone",order.getPhoneshipping());
 					model.addAttribute("adress", order.getAdress());
 					model.addAttribute("totalamountperitem", order.getTotalamountperitem());
 					model.addAttribute("phonenumber", order.getPhonenumber());

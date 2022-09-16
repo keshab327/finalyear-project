@@ -27,6 +27,7 @@
                   <th>Orderid</th>
                  <th>Productname</th>
                 <th>Productid</th>
+                 <th>Quantity</th>
                 <th>order datetime</th>
                 <th>Departstatus</th>
                   
@@ -59,6 +60,7 @@ private String deliverstatus;;-->
                  <td th:text="${Order.id}"></td>
                 <td th:text="${Order.productname}"></td>
                 <td th:text="${Order.productid}"></td>
+                  <td th:text="${Order.quantity}"></td>
                
                 
       <!--     <td><img th:src="@{${'/display/'+ OwnerConfirmOrder.id+'/'+shopid}}" 

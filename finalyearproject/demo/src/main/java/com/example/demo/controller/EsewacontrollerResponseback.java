@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,26 +11,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dao.EsewareturnRepository;
 import com.example.demo.dao.OrderRepository;
+import com.example.demo.dao.ProductbuyRepository;
 import com.example.demo.dao.ShopRegisterRepository;
 import com.example.demo.dao.Temporary_payment_supportRepository;
 import com.example.demo.dao.cartRepository;
-import com.example.demo.enittiy.Cart;
-import com.example.demo.enittiy.Esewareturn;
 import com.example.demo.enittiy.Order;
 import com.example.demo.enittiy.ShopRegister;
-import com.example.demo.enittiy.product;
 import com.example.demo.services.Emailservice;
 
 @RestController
 public class EsewacontrollerResponseback {
 
-	@Autowired
-	private EsewareturnRepository esewarepo;
+
 	
 	@Autowired
 	private OrderRepository orderrepo;
+	@Autowired
+	private ProductbuyRepository productbuyrepo;
 	
 	@Autowired
 	private ShopRegisterRepository shopregisterrepo;
@@ -52,61 +49,26 @@ public class EsewacontrollerResponseback {
 	  
 		System.out.println("\n\n\npid"+pid+"\namt"+tAmt+"\nrefId"+refId);
 		
-		Esewareturn esewa=new Esewareturn();
-		esewa.setTotoal_amount(tAmt);
-		esewa.setRefid_esewa(refId);
-		esewa.setPid(pid);
-		esewarepo.save(esewa);
-		
-		
-		
-		
 		Date createDate = new Date();
-		int i=0;
-		List<Order> order=orderrepo.findByPid(pid);
-	//	System.out.println("\\n\n\n order fetched\n");
-		for(Order o:order) {
-			o.setStatus("CONFIRMED");
-			o.setOrderedDate(createDate);
-			orderrepo.save(o);
-			ShopRegister shop=shopregisterrepo.findById(o.getShopid()).get();
-			List<Order> orderin_shop=shop.getOrder();
-			orderin_shop.add(o);
-			shop.setOrder(orderin_shop);
-			shopregisterrepo.save(shop);
-			
-			if(o.getCartindex()!=-5) {
-				
-				Cart cart=o.getCart();
-				List<product> productlist=cart.getProducts();
-				productlist.remove(o.getCartindex());
-				cart.setProducts(productlist);
-				cartrepo.save(cart);
-				
-			}
-			else {
-				Cart cart=o.getCart();
-				List<product> productlist=cart.getProducts();
-				productlist.remove(i);
-				cart.setProducts(productlist);
-				cartrepo.save(cart);
-			}
-		i++;
-			
-					
-		}
-		
-		
-	
-		
-		
-	
-		 
+		Order order=orderrepo.findByPid(pid).get();
+		order.setOrderedDate(createDate);
+		order.setStatus("CONFIRMED");
+		orderrepo.save(order);
 		
 		
 		
-	
+		 order=orderrepo.findByPid(pid).get();
+		ShopRegister shop=shopregisterrepo.findById(order.getShopid()).get();
+		List<Order> orders=shop.getOrder();
+		orders.add(order);
+		shopregisterrepo.save(shop);
 		
+		
+	//	productbuyrepo.deleteById(order.getProductbuy().getProductbuyid());
+		
+		
+		
+		///send mail to customer
 		 String sendto="jkeshab570@gmail.com";
 		 String subject="from efancy";
 		 String inside_text="dear customer your payment has been success soon your order will be placed";
@@ -164,10 +126,10 @@ return "success";
 	
 	
 	
-	
-	
+
 	
 	
 
+	
 	}
 

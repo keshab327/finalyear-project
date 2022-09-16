@@ -12,7 +12,7 @@ public interface OrderRepository extends JpaRepository<Order,Integer> {
 	
 	
 	//void deleteAllByStatus(String s); for all delete list must be passed  void deleteAllByStatus(List<Order> f)
-	List<Order> findByPid(int id);
+	Optional<Order> findByPid(int id);
 	List<Order> findByStatus(String s);
 	List<Order> findByShopid(long id);
 	List<Order> findAllByshopid(long id);

@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,12 +32,13 @@ private long shopid;
 
 int customerid;
 
-int cartindex;
+
 
 String productname;
 private int pid;
 private int productid;
 private String adress;
+@Column(nullable = true)
 private String shippingadress;
 
 
@@ -48,6 +50,12 @@ private String status;
 private double totalamountperitem;
 private String departstatus;
 private String deliverstatus;
+private int quantity;
+
+
+@Column(nullable = true)
+private long phoneshipping;
+
 
 @Temporal(TemporalType.TIMESTAMP)
 @Column(name = "ordereddate", nullable = true)
@@ -66,18 +74,8 @@ private Date delivereddate;
 
 
 
-
-
-
-
-
-@ManyToOne(fetch=FetchType.LAZY,cascade= CascadeType.MERGE)
-@JoinColumn(name="pid2")
-private Esewareturn esewareturn;
-
-
 @ManyToOne
-private Cart cart;
+private Productbuy productbuy;
 
 
 
@@ -87,18 +85,33 @@ private Cart cart;
 
 
 
-public Cart getCart() {
-	return cart;
+
+
+
+
+
+
+
+
+public Productbuy getProductbuy() {
+	return productbuy;
 }
-public void setCart(Cart cart) {
-	this.cart = cart;
+public void setProductbuy(Productbuy productbuy) {
+	this.productbuy = productbuy;
 }
-public int getCartindex() {
-	return cartindex;
+public int getQuantity() {
+	return quantity;
 }
-public void setCartindex(int cartindex) {
-	this.cartindex = cartindex;
+public void setQuantity(int quantity) {
+	this.quantity = quantity;
 }
+public long getPhoneshipping() {
+	return phoneshipping;
+}
+public void setPhoneshipping(long phoneshipping) {
+	this.phoneshipping = phoneshipping;
+}
+
 
 
 
@@ -214,12 +227,6 @@ public double getTotalamountperitem() {
 public void setTotalamountperitem(double totalamountperitem) {
 	this.totalamountperitem = totalamountperitem;
 }
-public Esewareturn getEsewareturn() {
-	return esewareturn;
-}
-public void setEsewareturn(Esewareturn esewareturn) {
-	this.esewareturn = esewareturn;
-}
 
 
 
@@ -235,17 +242,6 @@ public void setOrderedDate(Date orderedDate) {
 
 
 
-
-
-@Override
-public String toString() {
-	return "Order [id=" + id + ", shopid=" + shopid + ", customerid=" + customerid + ", cartid=" 
-			+ ", productname=" + productname + ", pid=" + pid + ", productid=" + productid + ", adress=" + adress
-			+ ", shippingadress=" + shippingadress + ", email=" + email
-			+ ", phonenumber=" + phonenumber + ", status=" + status + ", totalamountperitem=" + totalamountperitem
-			+ ", departstatus=" + departstatus + ", deliverstatus=" + deliverstatus + ", orderedDate=" + orderedDate
-			+ ", departdate=" + departdate + ", delivereddate=" + delivereddate + ", esewareturn=" + esewareturn + "]";
-}
 
 
 

@@ -65,7 +65,7 @@ public class ShopRegister {
     private String adress;
 	
 	
-	
+	private  String esewaservicecode;
 	
     
     
@@ -96,6 +96,21 @@ public class ShopRegister {
 
 	
 	
+	
+	public String getEsewaservicecode() {
+		return esewaservicecode;
+	}
+
+
+
+
+	public void setEsewaservicecode(String esewaservicecode) {
+		this.esewaservicecode = esewaservicecode;
+	}
+
+
+
+
 	public String getVerification() {
 		return verification;
 	}

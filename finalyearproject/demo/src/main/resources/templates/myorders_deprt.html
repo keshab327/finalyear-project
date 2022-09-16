@@ -28,6 +28,7 @@
                 <th>Productid</th>
                 <th>order datetime</th>
                 <th>Departstatus</th>
+                <th>Dliveredstatus</th>
                 <th>Departdate</th>
                  <th>Current location</th>
                   
@@ -69,7 +70,7 @@ private Date delivereddate;
             
             
                  <td th:text="${#dates.format({Order.orderedDate}, 'dd-MM-yyyy HH:mm')}"/></td>
-               
+                 <td th:text="${Order.departstatus}"  style="color:blue;"></td>
                  <td th:text="${Order.deliverstatus}"  style="color:blue;"></td>
                   <td th:text="${#dates.format({Order.departdate}, 'dd-MM-yyyy HH:mm')}"/></td>
                   <td th:text="${Order.currentadress}"  style="color:blue;"></td>

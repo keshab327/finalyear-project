@@ -114,7 +114,7 @@ public class shopController {
 	model.addAttribute("categoryid", -1);
 	}
 	
-	else if(search.equalsIgnoreCase("a")&&categoryid!=-1){
+	else if(categoryid!=-1){
 		model.addAttribute("search", "a");
 	
 		model.addAttribute("categoryid", categoryid);
@@ -126,7 +126,7 @@ public class shopController {
 	
 	}
 		
-	else if(categoryid==-1){
+	else if(search.equals("a")==false&&categoryid==-1){
 		model.addAttribute("search", search);
 		
 		model.addAttribute("categoryid", -1);
@@ -137,7 +137,7 @@ public class shopController {
 	
 		
 	}
-	
+
 	
 	
 	

@@ -11,18 +11,20 @@
           var pan_number = $("#pan_number").val();
          var phone_number = $("#phone_number").val();
          var email = $("#email").val();
+         var esewaservicecode=$("#esewaservicecode").val();
          
         var form = $("#form").serialize();
     	var data = new FormData($("#form")[0]);
     	data.append('name', name);
     	data.append('email', email);
     	data.append('adress', adress);
+    	data.append('esewaservicecode',esewaservicecode)
     	
     	data.append('owner_name', owner_name);;
     	data.append('description', description); 
     	//alert(data);
         $('#loader').show();
-        if (email === "" ||phone_number === "" ||owner_name === "" || pan_number === "" || name === "" || file === "" || description === ""||file_tax ===""|| adress === "") {
+        if (esewaservicecode===""||email === "" ||phone_number === "" ||owner_name === "" || pan_number === "" || name === "" || file === "" || description === ""||file_tax ===""|| adress === "") {
         	$("#submit").prop("disabled", false);
             $('#loader').hide();
             
@@ -75,6 +77,10 @@
             else if(adress==""){
              $("#adress").css("border-color", "red");
                $("#error_adress").html("Please fill the required field.");
+             }
+             else if(esewaservicecode==""){
+             $("#esewaservicecode").css("border-color", "red");
+               $("#error_esewaservice").html("Please fill the required field.");
              }
            
           

@@ -22,11 +22,11 @@ public class Cart {
 	private Userdetail userdetail;
 	
 
+
+
+
+
 	
-	@ManyToMany
-	private List<product> products;
-
-
 	
 	
 
@@ -67,19 +67,6 @@ public class Cart {
 
 
 
-
-
-	public List<product> getProducts() {
-		return products;
-	}
-
-
-
-	public void setProducts(List<product> products) {
-		this.products = products;
-	}
-	
-	
 	
 	
 

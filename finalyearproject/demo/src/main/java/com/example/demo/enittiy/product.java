@@ -28,7 +28,7 @@ private int productid;
 private String name;
 private double price;
 
-private int quantity;// quamtity is  productid
+private int quantity;
 
 private String available;
 
@@ -37,9 +37,6 @@ private String available;
 @Column(name = "Image", length = Integer.MAX_VALUE, nullable = true)
 private byte[] product_image;
 
-
-@ManyToMany(mappedBy="products")
-private List<Cart> cartt;
 
 
 
@@ -65,20 +62,20 @@ private ShopRegister shopregisterr;
 
 
 
+public int getProductid() {
+	return productid;
+}
+
+public void setProductid(int productid) {
+	this.productid = productid;
+}
+
 public ShopRegister getShopregisterr() {
 	return shopregisterr;
 }
 
 public void setShopregisterr(ShopRegister shopregisterr) {
 	this.shopregisterr = shopregisterr;
-}
-
-public List<Cart> getCartt() {
-	return cartt;
-}
-
-public void setCartt(List<Cart> cartt) {
-	this.cartt = cartt;
 }
 
 

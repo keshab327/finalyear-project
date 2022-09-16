@@ -56,10 +56,15 @@ private Date orderedDate;
 				<div class="col-lg-7 single-right-left simpleCart_shelfItem" th:object="${order}">
 					Product Name: <span th:text="${productname}" class="mb-3"></span><br>
 					Product id: <span th:text="${productid}" class="mb-3"></span><br><br>
+					Quantity: <span th:text="${quantity}" class="mb-3"></span><br><br>
+					
 						Order adress: <span th:text="${adress}" class="mb-3"></span><br>
 					Shipping adress: <span th:text="${shippingadress}" class="mb-3"></span><br><br>
+					Shipping phone: <span th:text="${shipphone}" class="mb-3"></span><br><br>
+				
 				
 					Customer Number: <span th:text="${phonenumber}" class="mb-3"></span><br>
+					To deliver Number: <span th:text="${shipphone}" class="mb-3"></span><br>
 					email: <span th:text="${email}" class="mb-3"></span><br><br>
 					totalamount: <span th:text="${totalamountperitem}"  style="color:green;"     class="mb-3"></span><br>
 			order datetime:	<td th:text="${#dates.format({orderedDate}, 'dd-MM-yyyy HH:mm')}"/></td>

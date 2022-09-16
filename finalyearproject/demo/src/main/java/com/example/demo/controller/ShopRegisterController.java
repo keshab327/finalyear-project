@@ -61,7 +61,7 @@ public class ShopRegisterController {
 
 	@PostMapping("/image/saveImageDetails")
 	public @ResponseBody ResponseEntity<?> createProduct(@RequestParam("phone_number") long phone,@RequestParam("email") String email,@RequestParam("name") String name,@RequestParam("owner_name") String owner_name,@RequestParam("pan_number") int pan_number,
-			@RequestParam("adress") String adress, @RequestParam("description") String description, Model model, HttpServletRequest request
+			@RequestParam("adress") String adress, @RequestParam("esewaservicecode") String esewaservicecode,@RequestParam("description") String description, Model model, HttpServletRequest request
 			,final @RequestParam("image") MultipartFile file,final @RequestParam("image_tax_report") MultipartFile file_tax) {
 		try {
 		
@@ -93,6 +93,7 @@ public class ShopRegisterController {
 			String[] adresss = adress.split(",");
 			String[] owner_names = adress.split(",");
 			String[] emails = email.split(",");
+			String[] esewaservicecode1=esewaservicecode.split(",");
 			Date createDate = new Date();
 			
 		
@@ -111,6 +112,7 @@ public class ShopRegisterController {
 			imageGallery.setPan_number(pan_number);
 			imageGallery.setOwner_name(owner_names[0]);
 			imageGallery.setEmail(emails[0]);
+			imageGallery.setEsewaservicecode(esewaservicecode1[0]);
 			imageGallery.setPhone_number(phone);
 			
 		imageGallery.setVerification(confirm);

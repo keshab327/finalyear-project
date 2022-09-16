@@ -336,10 +336,11 @@ if(customer.isEmpty()) {
 
 
 
-	
+model.addAttribute("quantity", order.getQuantity());
 	model.addAttribute("productid", order.getProductid());
 	model.addAttribute("productname", order.getProductname());
 	model.addAttribute("shippingadress", order.getShippingadress());
+	model.addAttribute("shipphone",order.getPhoneshipping());
 	model.addAttribute("adress", order.getAdress());
 	model.addAttribute("totalamountperitem", order.getTotalamountperitem());
 	model.addAttribute("phonenumber", order.getPhonenumber());
@@ -352,6 +353,7 @@ if(customer.isEmpty()) {
 	model.addAttribute("currentadress", order.getCurrentadress());
 	model.addAttribute("productid", order.getProductid());
 	model.addAttribute("customerid", order.getCustomerid());
+	
 	
 	
 if(a.equals("notempty")) {

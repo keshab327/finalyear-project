@@ -76,11 +76,24 @@
                 <small id="emailHelp" class="form-text text-muted">plz enter correct adress</small>
             </div>
             
-             <div class="form-group">
+              <h4> <label for="email" style="color:brown;">click to change shipping adress</label></h4>
+             <input type="radio"  onclick="show()"  value="click to deliver somewhere else" placeholder="click me to deliver somewhere else" >
+               
+              
+             <div class="form-group" id="shipadress">
+             
                 <label for="email">shipping address</label>
-                <input type="text" class="form-control form-control-lg" required minlength="6" placeholder="shipping adress" name="shipping_adress" id="shippig_adress"
+                <input type="text"  class="form-control form-control-lg" minlength="6" placeholder="shipping adress" name="shipping_adress" id="ship1"
                        >
-                <small id="emailHelp" class="form-text text-muted">plz enter correct shipping adress</small>
+                <small id="emailHelp" required class="form-text text-muted"> number where you wan to deliver</small>
+            </div>
+            
+          
+             <div class="form-group"   id="shipnumber">
+                <label for="email">shipping phone number</label>
+                <input type="number" class="form-control form-control-lg"   minlength="6" placeholder="shipping phone number" name="shippingphoneno" id="ship2"
+                       aria-describedby="emailHelp">
+               <br>
             </div>
 
 
@@ -93,16 +106,59 @@
     <input value="EPAYTEST" name="scd" type="hidden">
     <input th:attr="value = ${transaction_id}" name="pid" type="hidden">
     <input th:attr="value = ${product_id}" name="product_id" type="hidden" >
-     <input th:attr="value = ${cartindex}" name="cartindex" type="hidden" >
-       <input th:attr="value = ${cartid}" name="cartid" type="hidden" >
+     <input th:attr="value = ${productbuyid}" name="productbuyid" type="hidden" >
+       
+        <input th:attr="value = ${quantity}" name="quantity" type="hidden" >
+        <input th:attr="value = ${singleprice}" name="singleprice" type="hidden" >
     
-   
+
 
             <input type="submit" value="confirm" class="btn btn-primary btn-block">
-           
+         
         </form>
     </div>
 </div>
+
+<script>
+
+var x=document.getElementById("shipadress");
+var y=document.getElementById("shipnumber");
+
+x.style.display="none";
+	y.style.display="none";
+	document.getElementById("ship1").required = false;
+	document.getElementById("ship2").required = false;
+	document.getElementById("ship1").value="shipadress";
+	document.getElementById("ship2").value=10;
+
+
+function show(){
+
+if(x.style.display=="none"||y.style.display=="none")
+{
+	
+	x.style.display="block";
+	y.style.display="block";
+		document.getElementById("ship1").value="";
+	document.getElementById("ship2").value="";
+
+document.getElementById("ship1").required = true;
+	document.getElementById("ship2").required = true;        
+}
+else{
+	
+	x.style.display="none";
+	y.style.display="none";
+	document.getElementById("ship1").required = false;
+	document.getElementById("ship2").required = false;
+	document.getElementById("ship1").value="shipadress";
+	document.getElementById("ship2").value=10;
+
+}
+
+}
+</script>
+
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

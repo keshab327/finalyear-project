@@ -1,31 +1,28 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dao.CategoryRepository;
 import com.example.demo.dao.OrderRepository;
+import com.example.demo.dao.ProductbuyRepository;
 import com.example.demo.dao.Temporary_payment_supportRepository;
 import com.example.demo.dao.UserRepository;
 import com.example.demo.dao.UserdetailRepository;
 import com.example.demo.dao.cartRepository;
 import com.example.demo.dao.productRepository;
 import com.example.demo.enittiy.Cart;
-import com.example.demo.enittiy.Category;
 import com.example.demo.enittiy.Order;
-import com.example.demo.enittiy.Temporary_support_payment;
+import com.example.demo.enittiy.Productbuy;
 import com.example.demo.enittiy.product;
 import com.example.demo.services.ProductService;
 
@@ -51,6 +48,9 @@ public class CartController {
 	@Autowired
 	OrderRepository  orderrepo;
 	
+	@Autowired
+	ProductbuyRepository productbuyrepo;
+	
 
 
 
@@ -62,7 +62,7 @@ public class CartController {
 	
 	
 	@GetMapping("/addToCart/{id}")
-	public String addToCart(@PathVariable int id, HttpServletRequest request) {
+	public String addToCart(@PathVariable int id, HttpServletRequest request,Model model) {
 		  
 int user_id;
 try {
@@ -84,26 +84,61 @@ try {
 		 //creting if cart is not present
 		  
 		  Cart cart=new Cart();
-		  List<product> productlist=new ArrayList<product>();
+		 
 		Optional<Cart> ca=cartrepo.findByUserdetail_Userdetailid(user_id);
 		if(ca.isEmpty()) {
 			cart.setUserdetail(userdetailrepo.findById(user_id).get());
+			cartrepo.save(cart);
+			
+		}		
+		 
+		Optional<Cart> caa=cartrepo.findByUserdetail_Userdetailid(user_id);
+		int cartid=caa.get().getCartid();
+		cart=caa.get();
+	
+		int quantity;
+	product product=productrepo.findById(id).get();
+	double psc=product.getCategory().getProduct_service_charge();
+	double pdc=product.getCategory().getProduct_delivery_charge();
+	double tax=product.getCategory().getProduct_tax();
+	double txamt=(tax/100)*product.getPrice();
+	double price=product.getPrice();
+	double total=psc+pdc+txamt+price;
+	
+	
+	
+	
+		Productbuy buy=new Productbuy();
+		Optional<Productbuy> p= productbuyrepo.findByProducttt_productidAndCart_cartid(id ,cartid);
+		if(p.isEmpty()) {
+			
+			buy.setCart(cart);
+			buy.setProducttt(productrepo.findById(id).get());
 		
+			buy.setPdc(pdc);
+			buy.setPsc(psc);
+			buy.setTotaltax(txamt);
+			buy.setTotal(total);
+			
 			
 		}else {
-			cart=ca.get();
-			productlist=cart.getProducts();
+			
+			buy=p.get();
+		
+			
 		}
 		
 		
-		//adding product
-		product product1= productrepo.findById(id).get(); 
+		
+		
+		productbuyrepo.save(buy);
 		
 	
-		productlist.add(product1);
 	
-		cart.setProducts(productlist);
-		cartrepo.save(cart);
+	
+		//cart.setProducts(productlist);
+		model.addAttribute("available_quantity",productrepo.findById(id).get().getQuantity());
+		
 		
 	
 	
@@ -117,7 +152,7 @@ try {
 		
 	
 	
-	
+
 	@GetMapping("/cart")
 	public String cartGet(Model model,HttpServletRequest request)
 	{
@@ -138,12 +173,7 @@ try {
 		
 		
 		
-		
-		
-		
-		
-		
-		
+	//delete not confirmed orders	
 		String s ="NOTCONFIRMED";
 		List<Order> 	 order=orderrepo.findAllByCustomeridAndStatus(user_id, s);
 		 
@@ -155,42 +185,35 @@ try {
 		 }
 		
 	
-
-		int count=0;
+		 
+		 
+		  
+		  Cart cart=new Cart();
+		 
 		Optional<Cart> ca=cartrepo.findByUserdetail_Userdetailid(user_id);
+		if(ca.isEmpty()) {
+			cart.setUserdetail(userdetailrepo.findById(user_id).get());
+			cartrepo.save(cart);
+			
+		}		
+		 
 		
-		
-	List<product> products=ca.get().getProducts();
-	double total_tax=0,total_psc=0,total_pdc=0,total_price=0,total_amount=0;
-	for(product p:products) {
-		Category c=new Category();
-		c=p.getCategory();
-		total_tax=total_tax+c.getProduct_tax()/100*p.getPrice();
-		total_psc=total_psc+c.getProduct_service_charge();
-		total_pdc=total_pdc+c.getProduct_delivery_charge();
-		total_price=total_price+p.getPrice();
+		//if cart is present
+		Optional<Cart> caa=cartrepo.findByUserdetail_Userdetailid(user_id);
+		int cartid=caa.get().getCartid();
+		cart=caa.get();
 	
-		count=count+1;
-	}
 	
-	total_amount=total_tax+total_psc+total_pdc+total_price;
-		
-	
-		float sum=0;
-		
-
-		
-		System.out.println("\n\n\n sum in add cart"+sum);
-		model.addAttribute("cartCount",count);
-		model.addAttribute("total",total_amount);
-		model.addAttribute("total_price_items",total_price);
-		model.addAttribute("total_tax",total_tax);
-		model.addAttribute("total_psc",total_psc);
-		model.addAttribute("total_pdc",total_pdc);
-	model.addAttribute("cartid",ca.get().getId());
 		
 		
+int count=0;
+		Productbuy buy=new Productbuy();
+		List<Productbuy> products= productbuyrepo.findByCart_cartid(cartid);
+		for(Productbuy p:products) {
+			count++;
+		}
 		
+		model.addAttribute("count",count);
 		model.addAttribute("cart",products);
 		
 		
@@ -200,15 +223,12 @@ try {
 	
 
 	
-	@GetMapping("/cart/removeItem/{index}/{cartindex}")
-	public String cartItemRemove(@PathVariable("index") int cartid,@PathVariable("cartindex") int cartindex,HttpServletRequest request) {
+	@GetMapping("/cart/removeItem/{productbuyid}")
+	public String cartItemRemove(@PathVariable("productbuyid") int id) {
 	     
 
-		Cart cart=cartrepo.findById(cartid).get();
-		List<product> products=cart.getProducts();
-		products.remove(cartindex);
-	    cart.setProducts(products);
-       cartrepo.save(cart);
+	productbuyrepo.deleteById(id);
+       
 		
 		
 		return "redirect:/cart";
@@ -217,43 +237,63 @@ try {
 	
 	
 	
-	@GetMapping("/cart/buysingleItem/{productid}/{cartid}/{cartindex}")
-	public String cartbuyRemove(@PathVariable("productid") int productid,@PathVariable("cartid") int cartid,@PathVariable("cartindex") int cartindex,Model model,HttpServletRequest request) {
-		System.out.println("\n product_ididid"+productid);
+	@GetMapping("/cart/Item/")
+	public String cartbuyRemove(@RequestParam("productid") int productbuyid,@RequestParam("quantity") int quantity,HttpServletRequest request,Model model) {
+		System.out.println("\n product_ididid"+productbuyid+"\n\n"+quantity);
 		
-		 request.getSession().setAttribute("payment1", 1);
+		request.getSession().setAttribute("payment1", 1);
 		
-		Cart cart=cartrepo.findById(cartid).get();
+	
 		
-	List<product> products=cart.getProducts();
+		
+		//to fetch qunantity
+		
+		int user_id;
+		request.getSession().setAttribute("payment1", 1);
+		try {
+			 user_id = (int) request.getSession().getAttribute("userid");
+		
+				 
+				
+				 }catch(Exception e) {
+					 System.out.println("\n\n session not set");
+					 return "redirect:/register";
+				 }
+		
+		//finding available quantity
+		
+		  Productbuy buy=productbuyrepo.findById(productbuyid).get();
+		product p=productrepo.findById(buy.getProducttt().getProductid()).get();
 	
-              product p=	products.get(cartindex);
+		
 	
-	   double tax=0,psc=0,pdc=0,price=0,total=0;
-	    
+	  
 	
-					Category c=p.getCategory();
-			tax=(c.getProduct_tax()/100*p.getPrice());
-			psc=c.getProduct_service_charge();
-			pdc=c.getProduct_delivery_charge();
-			price=p.getPrice();
-		String name=p.getName();
 			
-			System.out.print("\n\n\n\npriceeeeeeeeee  "+p.getPrice()+"\n\n\n");
-		
-	total=price+tax+psc+pdc;
+			   double tax=quantity*buy.getTotaltax(),psc=buy.getPsc(),pdc=buy.getPdc(),price=buy.getProducttt().getPrice()*quantity;	
 		
 		
-		
+double	total=price+tax+psc+pdc;
+
+
+		model.addAttribute("quantity",quantity);
+		model.addAttribute("singleprice",buy.getProducttt().getProductid());
 		model.addAttribute("amt",price);
 		model.addAttribute("txAmt",tax);
 		model.addAttribute("psc",psc);
 		model.addAttribute("pdc",pdc);
 		model.addAttribute("tAmt",total);
-		model.addAttribute("product_id",productid);
-		model.addAttribute("product_name",name);
-		model.addAttribute("cartindex", cartindex);
-		model.addAttribute("cartid", cartid);
+		
+		
+		  System.out.print("\n\n\nafter total amount\n\n");
+		
+		model.addAttribute("product_id",buy.getProducttt().getProduct_id());
+		model.addAttribute("product_name",buy.getProducttt().getName());
+		model.addAttribute("productbuyid", productbuyid);
+		model.addAttribute("cartid", 0);
+		model.addAttribute("shippingadress","keshab");
+		
+		model.addAttribute("ship","FALSE");
 		
 
 		int min=10000000;
@@ -264,12 +304,14 @@ try {
 	
 	
 	return "checkout";
-	///	return "esewa_single_item";
+	
+	  
+	 
 	}
 	
 	
 	
-	
+	/*
 	
 	@GetMapping("/checkout")
 	public String checkout(Model model) {
@@ -281,7 +323,7 @@ return "checkout";
 	
 	
 	
-
+	/*
 	
 	
 
@@ -396,6 +438,8 @@ Optional<Cart> cartpresent=cartrepo.findByUserdetail_Userdetailid(user_id);
 	
 
 }
+
+*/
 }
    
 	

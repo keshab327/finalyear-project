@@ -31,26 +31,29 @@ public class paymentdetail {
 	double amt;
 	int pid;
 	int product_id=0;
-	int cartindex;
-	int cartid;
+	
+	long shippingphoneno;
 	
 	
 	
 	
 	
 	
-	public int getCartid() {
-		return cartid;
+	
+	
+	/**
+	 * @return the product_id
+	 */
+	public int getProduct_id() {
+		return product_id;
 	}
-	public void setCartid(int cartid) {
-		this.cartid = cartid;
+	public long getShippingphoneno() {
+		return shippingphoneno;
 	}
-	public int getCartindex() {
-		return cartindex;
+	public void setShippingphoneno(long shippingphoneno) {
+		this.shippingphoneno = shippingphoneno;
 	}
-	public void setCartindex(int cartid) {
-		this.cartindex = cartid;
-	}
+
 	public int getProdct_id() {
 		return product_id;
 	}
@@ -130,13 +133,10 @@ public class paymentdetail {
 	public void setPhone(long phone) {
 		this.phone = phone;
 	}
-	@Override
-	public String toString() {
-		return "paymentdetail [idddd=" + idddd + ", firstname=" + firstname + ", lastname=" + lastname + ", email="
-				+ email + ", adress=" + adress + ", phone=" + phone + ", shipping_adress=" + shipping_adress
-				+ ", txAmt=" + txAmt + ", tAmt=" + tAmt + ", psc=" + psc + ", pdc=" + pdc + ", amt=" + amt + ", pid="
-				+ pid + ", product_id=" + product_id + ", cartid=" + cartindex + "]";
-	}
+	
+	
+	
+	
 
 	
 

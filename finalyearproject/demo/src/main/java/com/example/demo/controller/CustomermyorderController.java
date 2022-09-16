@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dao.OrderRepository;
 import com.example.demo.dao.ProductreportRepository;
+import com.example.demo.dao.UserdetailRepository;
 import com.example.demo.enittiy.Order;
 import com.example.demo.enittiy.Productreport;
+import com.example.demo.enittiy.Userdetail;
 
 
 
@@ -33,6 +36,8 @@ public class CustomermyorderController {
 	
 	@Autowired
 	ProductreportRepository productreportrepo;
+	@Autowired
+	UserdetailRepository userdetailrepo;
 	
 	
 	
@@ -43,16 +48,24 @@ public class CustomermyorderController {
 		System.out.println("\n\n in my orders");
 	int customer_id=  (int) request.getSession().getAttribute("user_id");
 	
-	
-	System.out.println("\n\nn in my orders 3rd line"+customer_id);
-	System.out.println("shopid in shop seeorder"+customer_id);
-		
-	String deliverstatus="NOTDELIVERED";
-	List<Order> orders = orderrepo.findAllByCustomeridAndDeliverstatus(customer_id, deliverstatus);
-	
-		model.addAttribute("orders", orders);
+
 		
 	
+
+	
+Userdetail user=userdetailrepo.findById(customer_id).get();
+List<Order> orders1=user.getOrder();
+List<Order> orders2=new ArrayList<Order>();
+for(Order o:orders1) {
+	
+	
+	if(o.getDepartstatus().equalsIgnoreCase("DEPRTED")&&o.getDeliverstatus().equalsIgnoreCase("NOTDELIVERED")) {
+		
+		orders2.add(o);
+	}
+}
+	
+		model.addAttribute("orders", orders2);
 	
 		return "myorders_deprt";
 		
@@ -71,15 +84,19 @@ public class CustomermyorderController {
 	int customer_id=  (int) request.getSession().getAttribute("user_id");
 	
 	
-	System.out.println("\n\nn in my orders 3rd line"+customer_id);
-	System.out.println("shopid in shop seeorder"+customer_id);
-		
-	String deliverstatus="DELIVERED";
-	List<Order> orders = orderrepo.findAllByCustomeridAndDeliverstatus(customer_id, deliverstatus);
+Userdetail user=userdetailrepo.findById(customer_id).get();
+List<Order> orders1=user.getOrder();
+List<Order> orders2=new ArrayList<Order>();
+for(Order o:orders1) {
 	
-		model.addAttribute("orders", orders);
-		
 	
+	if(o.getDeliverstatus().equalsIgnoreCase("DELIVERED")) {
+		
+		orders2.add(o);
+	}
+}
+	
+		model.addAttribute("orders", orders2);
 	
 		return "myorders_delivered";
 		

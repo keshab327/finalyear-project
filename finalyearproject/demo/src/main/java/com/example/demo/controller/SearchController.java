@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.dao.CategoryRepository;
 import com.example.demo.dao.productRepository;
 import com.example.demo.enittiy.Category;
 import com.example.demo.enittiy.product;
@@ -36,22 +37,56 @@ public class SearchController {
 	@Autowired
       productRepository productrepo;
 	
+	@Autowired
+	CategoryRepository categoryrepo;
+	
 	
 	@GetMapping("/search")
 	public String SearchByProductName(Model model,@RequestParam("key") String productname) {
 	model.addAttribute("categories", categoryservice.getAllCategory());
-//	model.addAttribute("products", productservice.searchByProductName(productname));
+
+	model.addAttribute("categoryid", -1);
+	
+	
+	
 	model.addAttribute("cartCount",GlobalData.cart.size());
 	System.out.println("\nproductname "+productname);
 int pageno=0;// productname="skirt";
 	Pageable pageable=	PageRequest.of(pageno,3);	
 	Page<product> productpages= productrepo.findAllByNameAndAvailable(productname,"YES",pageable);
 	
+	if(productpages.getContent().isEmpty()) {
+		
+		
+		
+		
+		
+		List<Category> categorylist=categoryrepo.findAllByName(productname);
+	  int firstcategoryid=categorylist.get(0).getId();
+		
+		model.addAttribute("categories",categorylist);
+		
+		model.addAttribute("search", "a");
+		
+		model.addAttribute("categoryid", firstcategoryid);
+		
+		
+		 productpages= productrepo.findAllByCategory_IdAndAvailable(firstcategoryid,"YES",pageable);
+	
+		 
+		
+		
+	}
+	else {
+		model.addAttribute("search", productname);
+		model.addAttribute("categoryid", -1);
+	}
+	
 	model.addAttribute("productpages", productpages);
 	model.addAttribute("currentpageno", pageno);
 	model.addAttribute("totalpages",productpages.getTotalPages());
-	model.addAttribute("search", productname);
-	model.addAttribute("categoryid", -1);
+	
+	
 	model.addAttribute("pageno",0);
 	
 	return "shop";	

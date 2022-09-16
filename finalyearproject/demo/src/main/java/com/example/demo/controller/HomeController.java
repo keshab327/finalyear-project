@@ -46,11 +46,6 @@ public class HomeController {
 	public String shopwoner(HttpServletRequest request,Model model) {
 		
 		
-		 int id= (int) request.getSession().getAttribute("user_id");
-		 int i=0;
-		
-			
-		System.out.println("\n\n\n user id in session in buyer:  "+id);
 		
 		
 		return "redirect:/showallproduct/paging/";

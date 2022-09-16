@@ -104,8 +104,10 @@ public class Departandcancellorder {
 			}
 			else {
 				
-				int newquantity=p.getQuantity()-1;
-				p.setQuantity(newquantity);
+				Order o=orderrepo.findById(orderid).get();
+				
+				int oldquantity=p.getQuantity();
+				p.setQuantity(oldquantity-o.getQuantity());
 				productrepo.save(p);
 				
 			}
