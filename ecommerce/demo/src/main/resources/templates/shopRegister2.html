@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PixelTrice</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<br><br>
+<h1 class="text-center">shop register</h1><br><br>
+<div class="contact py-sm-5 py-4">
+		<div class="container py-xl-4 py-lg-2">
+		<!-- form -->
+		<form id="form">
+				<div class="contact-grids1 w3agile-6">
+					<div class="row">
+						<div class="col-md-6 col-sm-6 contact-form1 form-group">
+							<label class="col-form-label">shop Name</label>
+							<input type="text" class="form-control" placeholder="name" id="name" name="name" required="required">
+							<p id="error_name"></p>
+						</div>
+						
+						
+							
+							<div class="col-md-6 col-sm-6 contact-form1 form-group">
+							<label class="col-form-label">owner Name</label>
+							<input type="text" class="form-control" placeholder="owner_name" id="owner_name" name="owner_name" required="required">
+							<p id="error_owner_name"></p>
+						</div>
+						
+						<div class="col-md-6 col-sm-6 contact-form1 form-group">
+							<label class="col-form-label">pan number</label>
+							<input type="number" class="form-control" placeholder="10 digit pannumber" min="10" max="10"   id="pan_number" name="pan_number" required="required">
+							<p id="error_pan_number"></p>
+						</div>
+						
+							<div class="col-md-6 col-sm-6 contact-form1 form-group">
+							<label class="col-form-label">phone number</label>
+							<input type="tel"   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  class="form-control" placeholder="+977" min="10" max="10"   id="phone_number" name="phone_number" required="required">
+							 <small>Format: 986-867-9009</small>
+							<p id="error_phone_number"></p>
+						</div>
+						
+							<div class="col-md-6 col-sm-6 contact-form1 form-group">
+							<label class="col-form-label">email</label>
+							<input type="email" class="form-control" placeholder="keshabjoshi877@gmail.com"  id="email" name="email" required="required">
+							<p id="error_email"></p>
+						</div>
+						
+						
+						
+						
+						<div class="col-md-6 col-sm-6 contact-form1 form-group">
+							<label class="col-form-label">Description</label>
+							<textarea class="form-control" placeholder="shopDescription" id="description" rows="3" cols="45" name="description" required="required"></textarea>
+							<p id="error_description"></p>
+						</div>
+						<div class="col-md-6 col-sm-6 contact-form1 form-group">
+							<label class="col-form-label">citizen ship Image</label>
+							<input type="file" class="form-control" placeholder="" name="image" id="image" required="required">
+							<p id="error_file"></p>
+						</div>
+						
+							<div class="col-md-6 col-sm-6 contact-form1 form-group">
+							<label class="col-form-label">Tax Report Image</label>
+							<input type="file" class="form-control" placeholder="" name="image_tax_report" id="image_tax_report" required="required">
+							<p id="error_image_tax_report"></p>
+						</div>
+						
+						<div class="col-md-6 col-sm-6 contact-form1 form-group">
+							<label class="col-form-label">adress</label>
+							<input type="text" class="form-control" placeholder="adress" name="adress" id="adress" required="required">
+							<p id="error_adress"></p>
+						</div>
+					</div>
+					
+								<div class="col-md-6 col-sm-6 contact-form1 form-group">
+							<label class="col-form-label">Esewa servicecode</label>
+							<input type="text" class="form-control" placeholder="E-sewa servicecode" name="esewaservicecode" id="esewaservicecode" required="required">
+							<p id="error_esewaservice"></p>
+						</div>
+					</div>
+					
+					
+					
+						<div class="right-w3l col-md-6">
+							<input type="button" id="submit" class="btn btn-primary form-control" value="Submit">
+							<br><br>
+						</div>
+						
+				</div>
+				<br>
+				<div id="success" class="text-center" style="color:green;"></div>
+				<div id="error" class="text-center" style="color:red;"></div>
+			</form>
+		</div>
+	</div>
+<p class="text-center">
+  	<img src="/images/loader.gif" alt="loader" style="width: 150px;height: 120px;" id="loader">
+</p>
+	<script src="/js/product.js"></script>
+</body>
+</html>
