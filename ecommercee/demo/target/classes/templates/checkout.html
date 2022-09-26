@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/logo.pngu}"  src="../static/images/logoo.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}" href="#">home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/shop}" href="#">shop</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Sign Up</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="col-sm-6">
+        <h3 style="margin-top: 10px">PaymentDetails</h3>
+        <p>Please fill out all the info</p>
+        <form th:action="@{/customer/payment}" th:object="${payment}" method="post">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" name="firstname" id="firstName" th:value="${firstname}" required placeholder="Your Firstname" class="form-control form-control-lg">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" name="lastname" id="lastName"  th:value="${lastname}" required placeholder="Your Lastname" class="form-control form-control-lg">
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control form-control-lg"   th:value="${email}" required minlength="6" placeholder="Email" name="email" id="email"
+                       aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with
+                    anyone else.</small>
+            </div>
+            
+            
+
+
+
+            
+            
+              <div class="form-group">
+                <label for="email">phone number</label>
+                <input  type="tel" class="form-control form-control-lg"     pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  required minlength="6" placeholder="+977" name="phone" id="number"
+                       aria-describedby="emailHelp">
+               <small>Format: 986-679-9009</small>
+            </div>
+            
+            <h5>Provience</h5><input type="text" name="provience" required th:value="${provience}"><br>
+             <h5>District</h5><input type="text" required name="provience" th:value="${district}"><br>
+             <h5>Remaining adress</h5><input required  name="wardno" type="text" th:value="${wardno}">
+            
+            
+            
+              <h4> <label for="email" style="color:brown;">click to change shipping adress</label></h4>
+             <input type="radio"  onclick="show()"  value="click to deliver somewhere else" placeholder="click me to deliver somewhere else" >
+               
+              
+             <div class="form-group" id="shipadress">
+             <!--Shipping adress start-->
+             
+             
+             
+             
+             
+             
+             
+             
+             
+            <h5>Select province</h5>
+            <select name="shippingprovience"  class="form-group" id="shippingprovience" onchange="hide()">
+        <option th:each="p :${proviences}"
+                                th:value="${p.proviencename}"
+                                th:text="${p.proviencename}"
+                        >
+                    </select>
+
+
+
+<input type="text" hidden name="shippingdistrict" th:value="NOTAVAILABLE" id="shippingdistrict">
+
+ &nbsp; <br>
+ <h4>Select your district</h4>
+
+
+
+
+
+
+
+
+
+<!--district start-->
+
+  <select name="provience1"  id="p1" onchange="district1('p1')">
+        <option th:each="p :${p1}"
+                                th:value="${p.districtname}"
+                                th:text="${p.districtname}"
+                        >
+                    </select>
+                    
+                    
+                      <select name="provience2" class="form-group" id="p2" onchange="district1('p2')">
+        <option th:each="p :${p2}"
+                                th:value="${p.districtname}"
+                                th:text="${p.districtname}"
+                        >
+                    </select>
+                    
+                    
+                    
+                      <select name="provience3" class="form-group" id="p3"  onchange="district1('p3')">
+        <option th:each="p :${p3}"
+                                th:value="${p.districtname}"
+                                th:text="${p.districtname}"
+                        >
+                    </select>
+                    
+                    
+
+  <select name="provience4" class="form-group" id="p4"  onchange="district1('p4')">
+        <option th:each="p :${p4}"
+                                th:value="${p.districtname}"
+                                th:text="${p.districtname}"
+                        >
+                    </select>
+                    
+
+
+
+  <select name="provience5" class="form-group" id="p5"  onchange="district1('p5')">
+        <option th:each="p :${p5}"
+                                th:value="${p.districtname}"
+                                th:text="${p.districtname}"
+                        >
+                    </select>
+                    
+                    
+                    
+                      <select name="provience6" class="form-group" id="p6"  onchange="district1('p6')">
+        <option th:each="p :${p6}"
+                                th:value="${p.districtname}"
+                                th:text="${p.districtname}"
+                        >
+                    </select>
+                    
+                    
+
+    <select name="provience7" class="form-group" id="p7"  onchange="district1('p7')">
+        <option th:each="p :${p7}"
+                                th:value="${p.districtname}"
+                                th:text="${p.districtname}"
+                        >
+                    </select>
+                    
+                    
+                    
+ 
+<h5>Remaining adress</h5>
+<input type="text" require name="shippingwardno" placeholder="municipality +ward-no" id="shippingwardno">
+
+<!--shipping adress stop-->
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+               
+            </div>
+            
+          
+             <div class="form-group"   id="shipnumber">
+                <label for="email">shipping phone number</label>
+                <input  type="tel" class="form-control form-control-lg"     pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  minlength="6" placeholder="+977" name="shippingphoneno" id="ship2"
+                       aria-describedby="emailHelp">
+                       <small>Format: 986-679-9009</small>
+               <br>
+            </div>
+
+
+
+  <input th:attr="value = ${tAmt}" name="tAmt"   type="hidden" >
+    <input th:attr="value = ${amt}" name="amt" type="hidden" >
+    <input th:attr="value = ${txAmt}" name="txAmt"type="hidden" >
+    <input th:attr="value = ${psc}" name="psc" type="hidden" >
+    <input th:attr="value = ${pdc}" name="pdc" type="hidden" >
+    <input value="EPAYTEST" name="scd" type="hidden">
+    <input th:attr="value = ${transaction_id}" name="pid" type="hidden">
+    <input th:attr="value = ${product_id}" name="product_id" type="hidden" >
+     <input th:attr="value = ${productbuyid}" name="productbuyid" type="hidden" >
+       
+        <input th:attr="value = ${quantity}" name="quantity" type="hidden" >
+        <input th:attr="value = ${singleprice}" name="singleprice" type="hidden" >
+    
+
+
+            <input type="submit" value="confirm" class="btn btn-primary btn-block">
+         
+        </form>
+    </div>
+</div>
+
+<script>
+
+
+//shipping control
+
+
+
+
+var x1=document.getElementById("p1");
+var x2=document.getElementById("p2");
+var x3=document.getElementById("p3");
+var x4=document.getElementById("p4");
+var x5=document.getElementById("p5");
+var x6=document.getElementById("p6");
+var x7=document.getElementById("p7");
+
+var district=document.getElementById("shippingdistrict");
+
+x1.style.display="block";
+x2.style.display="none";
+x3.style.display="none";
+x4.style.display="none";
+x5.style.display="none";
+x6.style.display="none";
+x7.style.display="none";
+
+
+
+
+function hide(){
+
+	var provience=document.getElementById("shippingprovience").value;
+	if(provience=="Province No. 1"){//1
+		x1.style.display="block";
+x2.style.display="none";
+x3.style.display="none";
+x4.style.display="none";
+x5.style.display="none";
+x6.style.display="none";
+x7.style.display="none";
+
+
+	
+		
+}
+else if(provience=="Madhesh Province"){//2
+	
+x1.style.display="none";
+x2.style.display="block"
+x3.style.display="none";
+x4.style.display="none";
+x5.style.display="none";
+x6.style.display="none";
+x7.style.display="none";
+}
+else if(provience=="Bagmati Province"){//3
+x1.style.display="none";
+x2.style.display="none";
+x3.style.display="block";
+x4.style.display="none";
+x5.style.display="none";
+x6.style.display="none";
+x7.style.display="none"	;
+	
+}
+else if(provience=="Gandaki Province"){//4
+	x1.style.display="none";
+x2.style.display="none";
+x3.style.display="none";
+x4.style.display="block";
+x5.style.display="none";
+x6.style.display="none";
+x7.style.display="none";
+	
+}
+else if(provience=="Lumbini Province"){//5
+	
+	x1.style.display="none";
+x2.style.display="none";
+x3.style.display="none";
+x4.style.display="none";
+x5.style.display="block";
+x6.style.display="none";
+x7.style.display="none";
+}
+else if(provience=="Karnali Province"){//6
+	x1.style.display="none";
+x2.style.display="none";
+x3.style.display="none";
+x4.style.display="none";
+x5.style.display="none";
+x6.style.display="block";
+x7.style.display="none";
+	
+}else if(provience=="Sudurpashchim Province"){//7
+	x1.style.display="none";
+x2.style.display="none";
+x3.style.display="none";
+x4.style.display="none";
+x5.style.display="none";
+x6.style.display="none";
+x7.style.display="block";
+	
+}
+}
+
+
+function district1(a){
+	//var b=a.toString();
+	//alert(b);
+	
+	shippingdistrict.value=document.getElementById(a).value;
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+var x=document.getElementById("shipadress");
+var y=document.getElementById("shipnumber");
+var shippingprovience=document.getElementById("shippingprovience");
+var shippingdistrict=document.getElementById("shippingdistrict");
+var shippingwardno=document.getElementById("shippingwardno");
+
+x.style.display="none";
+	y.style.display="none";
+	//document.getElementById("ship1").required = false;
+	document.getElementById("ship2").required = false;
+	document.getElementById("ship1").value="shipadress";
+	provience.required=false;
+	district.required=false;
+	wardno.required=false;
+	//document.getElementById("ship2").value=10;
+	
+    shippingprovience="NOTAVAILABLE";
+    shippingdistrict="NOTAVAILABLE";
+  
+	
+
+
+function show(){
+
+if(x.style.display=="none"||y.style.display=="none")
+{
+	
+	x.style.display="block";
+	y.style.display="block";
+		//document.getElementById("ship1").value="";
+	document.getElementById("ship2").value="";
+
+//document.getElementById("ship1").required = true;
+	document.getElementById("ship2").required = true;   
+		shippingprovience.required=true;
+	shippingdistrict.required=true;
+	shippingwardno.required=true;     
+}
+else{
+	
+	x.style.display="none";
+	y.style.display="none";
+	//document.getElementById("ship1").required = false;
+	document.getElementById("ship2").required = false;
+		shippingprovience.required=false;
+	shippingdistrict.required=false;
+	shippingwardno.required=false; 
+	
+    shippingprovience="NOTAVAILABLE";
+    shippingdistrict="NOTAVAILABLE";
+    shippingwardno="NOTAVAILABLE";
+	//document.getElementById("ship2").value=10;
+
+}
+
+}
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

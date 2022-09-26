@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>PixelTrice</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<br>
+	<div class="banner-bootom-w3-agileits py-5">
+		<div class="container py-xl-4 py-lg-2">
+			<!-- tittle heading -->
+			<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+				<span>o</span>rder
+				<span>D</span>etails</h3><br>
+			<!-- //tittle heading -->
+			<div class="row">
+				<div class="col-lg-5 col-md-8 single-right-left ">
+					<div class="grid images_3_of_2">
+						<div class="flexslider">
+				<div class="thumb-image">
+						<label  style="color:blue;">product</label></br>
+						
+							&emsp;<img th:src="@{${'/display_productimage/' + productid}}" 
+							 class="img img-responsive img-fluid" alt=""> 
+						</div>
+						<br>
+						<br>
+							
+						
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+
+<!--
+nt customerid;
+String productname;
+private int pid;
+private int productid;
+private String adress;
+private String shippingadress;
+private String email;
+private long phonenumber;
+private String status;
+private double totalamountperitem;
+private String departstatus;
+private String deliverstatus;
+private Date orderedDate;
+Private String currentadress;
+-->
+
+
+				<div class="col-lg-7 single-right-left simpleCart_shelfItem" th:object="${order}">
+					Product Name: <span th:text="${productname}" class="mb-3"></span><br>
+					Product id: <span th:text="${productid}" class="mb-3"></span><br><br>
+						Quantity: <span th:text="${quantity}" class="mb-3"></span><br>
+						Order adress: <span th:text="${adress}" class="mb-3"></span><br>
+						
+						
+					  adress:        <span th:text="${provience}" style="color:black;" class="mb-3"></span>,
+                 <span th:text="${district}" style="color:black;" class="mb-3"></span>,
+                   <span th:text="${wardno}" style="color:black;" class="mb-3"></span>
+                
+                <br>
+  shipping adress:&emsp;&emsp;    <span th:text="${shippingprovience}" style="color:black;" class="mb-3"></span>,
+                 <span th:text="${shippingdistrict}" style="color:black;" class="mb-3"></span>,
+                   <span th:text="${shippingwardno}" style="color:black;" class="mb-3"></span><br>
+				
+				
+					Current adress: <span th:text="${currentadress}" style="color:brown"   class="mb-3"></span><br><br>
+				
+					Customer Number: <span th:text="${phonenumber}" class="mb-3"></span><br>
+					Shipping Number: <span th:text="${shipphone}" class="mb-3"></span><br>
+					email: <span th:text="${email}" class="mb-3"></span><br><br>
+					totalamount: <span th:text="${totalamountperitem}"  style="color:green;"     class="mb-3"></span><br>
+			order datetime:	<td th:text="${#dates.format({orderedDate}, 'dd-MM-yyyy HH:mm')}"/></td>
+				
+				
+				
+				
+				
+				
+					delivered status: <span th:text="${deliverstatus}"    style="color:blue;"   
+					  class="mb-3"></span> &emsp;<a th:href="@{/deliveryboy/updatestatus/{orderid}/{customerid}(orderid=${id},customerid=${customerid})}"  style="color:chartreuse;"   >click me to changestatus</a>
+					
+					</br>
+					
+				<!--	Owner Number: <span th:text="${phone_number}" style="color:red;"  class="mb-3"></span><br>-->
+					
+					
+				<!--	<div class="product-single-w3l">
+						Description: <span th:text="${description}" class="my-sm-4 my-3"> 
+						</span>
+					</div><br>-->
+					
+					
+					
+					 <form th:action="@{/deliveryboy/location}" th:object="${user}" method="post">
+            <div class="form-group">
+                <label >Update location</label>
+                <input type="text" name="lastlocation" required placeholder="Current adress of product" class="form-control form-control-lg">
+            </div>
+          
+           <input th:attr="value = ${id}" name="orderid" type="hidden" >
+           <input th:attr="value = ${customerid}" name="customerid" type="hidden" >
+
+            <input type="submit" value="update location"      class="btn btn-primary btn-block" >
+           
+        </form>
+					
+					 
+					 <br>
+					
+					<a href="/Deliveryboy/search">Go Back</a>
+					
+				
+						
+				
+					
+					
+			</div>
+		</div>
+	</div>
+	<div id="divv1"></div>
+	
+	<!-- only alert work without calling by function -->
+	<script>
+	function click(){
+		document.getElementById(id).innerHTML = "lalauuuu";
+ alert("hello world");
+ }
+</script>
+</body>
+</html>
